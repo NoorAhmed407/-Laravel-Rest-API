@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dummyAPI;
 use App\Http\Controllers\CRUDAPI;
+use App\Http\Controllers\SearchAPI;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,22 +24,35 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('data',[dummyAPI::class, 'index']);
 
+            // ************* CRUD API ROUTES ***********************
 
-//Get All the members
-Route::get('members',[CRUDAPI::class, 'getData']);
-
-
-//Get Single Member
-Route::get('members/{id}',[CRUDAPI::class, 'getSingleUser']);
+//Get All the devices
+Route::get('devices',[CRUDAPI::class, 'getData']);
 
 
-//Add Member to Database
-Route::post('members',[CRUDAPI::class, 'addData']);
+//Get Single device
+Route::get('devices/{id}',[CRUDAPI::class, 'getSingleUser']);
 
 
-//Update Data to Database
-Route::put('members/{id}',[CRUDAPI::class, 'updateData']);
+//Add devices to Database
+Route::post('devices',[CRUDAPI::class, 'addData']);
 
 
-//Delete Data to Database
-Route::delete('members/{id}',[CRUDAPI::class, 'deleteData']);
+//Update devices to Database
+Route::put('devices/{id}',[CRUDAPI::class, 'updateData']);
+
+
+//Delete devices to Database
+Route::delete('devices/{id}',[CRUDAPI::class, 'deleteData']);
+
+            // ************* CRUD API ROUTES END ***********************
+            
+            
+            
+            // ************* Search API Route ***********************
+
+Route::get('search/{string}',[SearchAPI::class, 'searchData']);
+
+
+
+            // ************* Search API Route End***********************

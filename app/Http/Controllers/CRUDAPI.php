@@ -23,7 +23,7 @@ class CRUDAPI extends Controller
 
     }
 
-
+    
     //Adding Data to Database
     function addData(Request $req)
     {
