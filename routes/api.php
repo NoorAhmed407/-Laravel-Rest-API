@@ -28,5 +28,17 @@ Route::get('data',[dummyAPI::class, 'index']);
 Route::get('members',[CRUDAPI::class, 'getData']);
 
 
+//Get Single Member
+Route::get('members/{id}',[CRUDAPI::class, 'getSingleUser']);
+
+
 //Add Member to Database
 Route::post('members',[CRUDAPI::class, 'addData']);
+
+
+//Update Data to Database
+Route::put('members/{id}',[CRUDAPI::class, 'updateData']);
+
+
+//Delete Data to Database
+Route::delete('members/{id}',[CRUDAPI::class, 'deleteData']);

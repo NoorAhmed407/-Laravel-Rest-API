@@ -7,12 +7,21 @@ use App\Models\Device;
 
 class CRUDAPI extends Controller
 {
+
+
     //Get All the Data
     function getData()
     {
         return Device::all();
     }
 
+
+    //Get A Single User
+    function getSingleUser($id)
+    {
+        return Device::find($id);
+
+    }
 
 
     //Adding Data to Database
@@ -32,5 +41,36 @@ class CRUDAPI extends Controller
             return ["Result"=>"Not Updated Error Occured"];
         }
 
+    }
+
+
+    function updateData(Request $req, $id){
+         $device =  Device::find($id);
+         $device->device_name = $req->device_name;
+         $device->device_type = $req->device_type;
+         $device->quantity = $req->quantity;
+         $device->save();
+
+         if($device){
+             return ["Result"=> "Device Updated","Updated Record"=>$device];
+         }
+         else{
+            return ["Result"=> "Error Occured"];
+
+         }
+
+    }
+
+    //Delete Data To database
+    function deleteData($id) 
+    {
+        $device =  Device::find($id);
+        $device->delete();
+        if($device){
+            return ["Result"=> "Data Deleted"];
+        }
+        else{
+            return ["Result"=> "Error Occured"];
+        }
     }
 }
