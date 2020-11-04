@@ -26,3 +26,7 @@ Route::get('data',[dummyAPI::class, 'index']);
 
 //Get All the members
 Route::get('members',[CRUDAPI::class, 'getData']);
+
+
+//Add Member to Database
+Route::post('members',[CRUDAPI::class, 'addData']);
