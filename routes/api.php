@@ -8,6 +8,7 @@ use App\Http\Controllers\SearchAPI;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,3 +75,18 @@ Route::post("upload",[FileController::class,'upload']);
 
 
 
+
+        //Authentication API with Passport
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', [AuthController::class,'login']);
+    Route::post('signup', [AuthController::class,'signup']);
+  
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('logout', [AuthController::class,'logout']);
+        Route::get('user', [AuthController::class,'user']);
+    });
+});
