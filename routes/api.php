@@ -7,6 +7,7 @@ use App\Http\Controllers\CRUDAPI;
 use App\Http\Controllers\SearchAPI;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,12 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
 
             // ************* Login API Route***********************
 Route::post("login",[UserController::class,'login']);
+
+
+
+
+            //****************File Upload Route*********************
+Route::post("upload",[FileController::class,'upload']);
 
 
 
