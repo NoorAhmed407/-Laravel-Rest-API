@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Device;
+use Validator;
 
 class CRUDAPI extends Controller
 {
@@ -28,23 +29,38 @@ class CRUDAPI extends Controller
     function addData(Request $req)
     {
 
-        $device = new Device;
-        $device->device_name=$req->device_name;
-        $device->device_type=$req->device_type;
-        $device->quantity=$req->quantity;
-        $device->save();
+        $rules = array(
+            'device_name'=>'required',
+            'device_type'=> 'required',
+            'quantity'=> 'required'
+        );
 
-        if($device){
-            return ["Result"=>"Data Added To Database"];
-        }
+        $validator = Validator::make($req->all(),$rules);
+        if($validator->fails())
+            {
+                return $validator->errors();
+            }
         else{
-            return ["Result"=>"Not Updated Error Occured"];
+            $device = new Device;
+            $device->device_name=$req->device_name;
+            $device->device_type=$req->device_type;
+            $device->quantity=$req->quantity;
+            $device->save();
+    
+            if($device){
+                return ["Result"=>"Data Added To Database"];
+            }
+            else{
+                return ["Result"=>"Not Updated Error Occured"];
+            }
         }
+
 
     }
 
 
     function updateData(Request $req, $id){
+
          $device =  Device::find($id);
          $device->device_name = $req->device_name;
          $device->device_type = $req->device_type;
@@ -58,7 +74,6 @@ class CRUDAPI extends Controller
             return ["Result"=> "Error Occured"];
 
          }
-
     }
 
     //Delete Data To database
